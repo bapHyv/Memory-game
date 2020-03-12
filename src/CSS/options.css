@@ -1,0 +1,9 @@
+.gameOptions {
+	height: 720px;
+	width: 720px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+	margin: auto;
+}
