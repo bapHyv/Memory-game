@@ -1,16 +1,15 @@
-import React, {Fragment, useContext} from 'react';
+import React, { useContext } from 'react';
 
-import '../CSS/memoryGame.css'
+import '../CSS/memoryGame.css';
 
 import { Link } from 'react-router-dom';
-import Bounce from 'react-reveal'
+import Bounce from 'react-reveal';
 
 import { frontFace, backFace } from '../DataImages';
 
-import gameContext from '../Context/gameContext'
+import gameContext from '../Context/gameContext';
 
 const MemoryGame = () => {
-
 	const [state, dispatch] = useContext(gameContext);
 
 	const handleClick = event => {
@@ -24,13 +23,23 @@ const MemoryGame = () => {
 	for (let i = 0; i < 12; i++) {
 		for (let j = 0; j < 2; j++) {
 			cards.push(
-					<div className="card" onClick={handleClick} key={j % 2 === 0 ? i : i + frontFace.length}>
-						<img className="frontCard" src={frontFace[i].img} alt={frontFace[i].name} />
-						<img className="backCard" src={backFace} alt="back face"/>
-					</div>
+				<div
+					className="card"
+					onClick={handleClick}
+					key={j % 2 === 0 ? i : i + frontFace.length}
+				>
+					<img
+						className="frontCard"
+						src={frontFace[i].img}
+						alt={frontFace[i].name}
+					/>
+					<img className="backCard" src={backFace} alt="back face" />
+				</div>
 			);
 		}
 	}
+
+	console.log('game state:', state)
 
 	return (
 		<div className="memoryPage">

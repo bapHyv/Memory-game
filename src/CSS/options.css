@@ -7,3 +7,14 @@
 	justify-content: space-around;
 	margin: auto;
 }
+
+.selectOptions {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+select{
+	margin-top: 40%;
+	margin-bottom: 40%;
+}
