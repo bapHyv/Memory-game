@@ -14,6 +14,7 @@ const Options = () => {
 	const [timeLocalState, setTimeLocalState] = useState(null);
 
 	const [state, dispatch] = useContext(optionsContext);
+	const {difficulty, theme, time} = state
 
 	console.log('options state:', state)
 
@@ -77,7 +78,7 @@ const Options = () => {
 			</Bounce>
 			<Bounce bottom>
 				<Link to="/game">
-					<button>Start game</button>
+					<button disabled={difficulty && theme && time ? false : true}>Start game</button>
 				</Link>
 			</Bounce>
 		</div>
