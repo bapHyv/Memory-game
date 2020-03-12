@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
 
 import '../CSS/memoryGame.css'
 
@@ -7,7 +7,12 @@ import Bounce from 'react-reveal'
 
 import { frontFace, backFace } from '../DataImages';
 
+import gameContext from '../Context/gameContext'
+
 const MemoryGame = () => {
+
+	const [state, dispatch] = useContext(gameContext);
+
 	const handleClick = event => {
 		event.currentTarget.className === 'card'
 			? (event.currentTarget.className = 'card flip')
@@ -19,12 +24,10 @@ const MemoryGame = () => {
 	for (let i = 0; i < 12; i++) {
 		for (let j = 0; j < 2; j++) {
 			cards.push(
-				<Fragment key={i}>
-					<div className="card" onClick={handleClick}>
+					<div className="card" onClick={handleClick} key={j % 2 === 0 ? i : i + frontFace.length}>
 						<img className="frontCard" src={frontFace[i].img} alt={frontFace[i].name} />
-						<img className="backCard" src={backFace} alt="back face" />
+						<img className="backCard" src={backFace} alt="back face"/>
 					</div>
-				</Fragment>
 			);
 		}
 	}

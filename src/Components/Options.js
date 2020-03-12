@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import '../CSS/options.css'
 
@@ -6,7 +6,12 @@ import { Link } from 'react-router-dom';
 
 import Bounce from 'react-reveal'
 
+import optionsContext from '../Context/optionsContext'
+
 const Options = () => {
+
+	const [state, dispatch] = useContext(optionsContext)
+
 	return (
 		<div className="gameOptions">
 			<Bounce top>
