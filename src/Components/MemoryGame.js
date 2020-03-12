@@ -8,24 +8,38 @@ import Bounce from 'react-reveal';
 import { frontFace, backFace } from '../DataImages';
 
 import gameContext from '../Context/gameContext';
+import optionsContext from '../Context/optionsContext';
 
 const MemoryGame = () => {
-	const [state, dispatch] = useContext(gameContext);
+	const [gameState, gameDispatch] = useContext(gameContext);
+	const { numberOfClicks } = gameState;
 
-	const handleClick = event => {
+	const [optionsState, optionsDispatch] = useContext(optionsContext);
+	const { difficulty, theme, time } = optionsState;
+
+	const handleClickCard = event => {
 		event.currentTarget.className === 'card'
 			? (event.currentTarget.className = 'card flip')
 			: (event.currentTarget.className = 'card');
+		gameDispatch({
+			type: 'SET_NUMBER_CLICKS'
+		})
 	};
+
+	const handleClickButton = () => {
+		gameDispatch({
+			type: "RESET_NUMBER_CLICKS"
+		})
+	}
 
 	const cards = [];
 
-	for (let i = 0; i < 12; i++) {
+	for (let i = 0; i < (difficulty / 2); i++) {
 		for (let j = 0; j < 2; j++) {
 			cards.push(
 				<div
 					className="card"
-					onClick={handleClick}
+					onClick={handleClickCard}
 					key={j % 2 === 0 ? i : i + frontFace.length}
 				>
 					<img
@@ -39,7 +53,7 @@ const MemoryGame = () => {
 		}
 	}
 
-	console.log('game state:', state)
+	console.log('game state:', gameState);
 
 	return (
 		<div className="memoryPage">
@@ -48,19 +62,19 @@ const MemoryGame = () => {
 			</Bounce>
 			<div className="timeAndClick">
 				<Bounce left>
-					<h2>timer: 'time remaining'</h2>
+					<h2>timer: {time}</h2>
 				</Bounce>
 				<Bounce right>
-					<h2>click: 'number of clicks'</h2>
+					<h2>click: {numberOfClicks}</h2>
 				</Bounce>
 			</div>
-			<Bounce>
+			<Bounce left>
 				<div className="cards">{cards}</div>
 			</Bounce>
 			<Bounce bottom>
 				<div className="optionsButton">
 					<Link to="/">
-						<button>Options</button>
+						<button onClick={handleClickButton}>Options</button>
 					</Link>
 				</div>
 			</Bounce>

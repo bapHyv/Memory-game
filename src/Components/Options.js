@@ -35,7 +35,7 @@ const Options = () => {
 
 	const handleSelectDifficulty = event => {
 		const { value } = event.target;
-		setDifficultyLocalState(value);
+		setDifficultyLocalState(parseInt(value));
 	};
 
 	const handleSelectTheme = event => {
@@ -55,12 +55,12 @@ const Options = () => {
 					<u>Game options:</u>
 				</h1>
 			</Bounce>
-			<Bounce left cascade>
+			<Bounce right cascade>
 				<div className="selectOptions">
 					<select name="" id="" onChange={handleSelectDifficulty}>
 						<option value="">--Select a difficulty--</option>
-						<option value="12cards">12 cards</option>
-						<option value="24cards">24 cards</option>
+						<option value="12">12 cards</option>
+						<option value="24">24 cards</option>
 					</select>
 					<select name="" id="" onChange={handleSelectTheme}>
 						<option value="">--Select a theme--</option>
