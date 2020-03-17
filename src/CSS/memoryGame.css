@@ -53,7 +53,7 @@ img{
 
 .frontCard.matched {
 	opacity: 0.6;
-	animation: lighting 2s linear 1 100ms
+	animation: lighting 1s linear 1 100ms
 }
 
 @keyframes lighting {
@@ -64,8 +64,6 @@ img{
 		opacity: 0.6;
 	}
 }
-
-
 
 .frontCard {
 	transform: rotateY(180deg);

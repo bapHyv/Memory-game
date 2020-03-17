@@ -19,30 +19,37 @@ const MemoryGame = () => {
 
 	const [imgArray, setImgArr] = useState(randomizedImagesArray);
 	const [imgFlipped, setImgFlipped] = useState([]);
+	const [winCount, setWinCount] = useState(0);
+	const [win, setWin] = useState(false);
+	const [lost, setLost] = useState(false);
 
 	useEffect(() => {
-		console.log(imgArray);
-	}, []);
+		if (winCount === randomizedImagesArray.length / 2) {
+			setTimeout(() => {
+				alert(`You won in ${numberOfClicks} clicks and you spent ${time} seconde`);
+			}, 1000);
+		}
+	}, [winCount]);
 
 	const clickingOnCard = (name, index) => {
 		if (imgFlipped.length === 2) {
 			setTimeout(() => {
-				checkingMatch()
+				checkingMatch();
 			}, 500);
 		} else {
 			let image = { name, index };
-			let imgFlippedTemp = imgFlipped
+			let imgFlippedTemp = imgFlipped;
 			let imgArrayTemp = imgArray;
 
 			imgArrayTemp[index].flipped = true;
-			imgFlippedTemp.push(image)
+			imgFlippedTemp.push(image);
 			setImgArr(imgArrayTemp);
-			setImgFlipped(imgFlippedTemp)
+			setImgFlipped(imgFlippedTemp);
 		}
 
 		if (imgFlipped.length === 2) {
 			setTimeout(() => {
-				checkingMatch()
+				checkingMatch();
 			}, 800);
 		}
 		gameDispatch({
@@ -59,12 +66,13 @@ const MemoryGame = () => {
 		) {
 			imgArrayTemp[imgFlipped[0].index].matched = true;
 			imgArrayTemp[imgFlipped[1].index].matched = true;
+			setWinCount(winCount + 1);
 		} else {
 			imgArrayTemp[imgFlipped[0].index].flipped = false;
 			imgArrayTemp[imgFlipped[1].index].flipped = false;
 		}
 		setImgArr(imgArrayTemp);
-		setImgFlipped([])
+		setImgFlipped([]);
 	};
 
 	const handleClickButton = () => {
@@ -91,12 +99,18 @@ const MemoryGame = () => {
 					{imgArray.map((e, i, a) => {
 						return (
 							<div
-								className={`card ${e.flipped ? 'flip' : ''} ${e.matched ? 'matched' : '' }`}
+								className={`card ${e.flipped ? 'flip' : ''} ${
+									e.matched ? 'matched' : ''
+								}`}
 								onClick={() => clickingOnCard(e.name, i)}
 								key={i}
 								cardname={e.name}
 							>
-								<img className={`frontCard ${e.matched ? 'matched' : '' }`} src={e.img} alt={e.name} />
+								<img
+									className={`frontCard ${e.matched ? 'matched' : ''}`}
+									src={e.img}
+									alt={e.name}
+								/>
 								<img className="backCard" src={backFace} alt="back face" />
 							</div>
 						);

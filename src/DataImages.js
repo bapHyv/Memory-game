@@ -85,7 +85,6 @@ export const randomizedImagesArray = randomizeArray(imagesFrontFace).map(e => {
 	return {
 		...e,
 		flipped: false,
-		matched: false,
-		fail: false
+		matched: false
 	}
 })
