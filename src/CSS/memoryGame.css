@@ -52,15 +52,15 @@ img{
 }
 
 .frontCard.matched {
-	opacity: 0.8;
-	animation: lighting 3s linear infinite 100ms
+	opacity: 0.6;
+	animation: lighting 2s linear 1 100ms
 }
 
 @keyframes lighting {
-	0%, 100% {
+	0% {
 		opacity: 1;
 	}
-	50% {
+	100% {
 		opacity: 0.6;
 	}
 }
