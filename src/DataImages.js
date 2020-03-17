@@ -39,30 +39,30 @@ export const frontFace = [
 		img: krusty,
 		name: 'Krusty'
 	},
-	{
-		img: lenny,
-		name: 'Lenny'
-	},
-	{
-		img: lisa,
-		name: 'Lisa'
-	},
-	{
-		img: maggie,
-		name: 'Maggie'
-	},
-	{
-		img: marge,
-		name: 'Marge'
-	},
-	{
-		img: milhouse,
-		name: 'Milhouse'
-	},
-	{
-		img: moe,
-		name: 'Moe'
-	}
+	// {
+	// 	img: lenny,
+	// 	name: 'Lenny'
+	// },
+	// {
+	// 	img: lisa,
+	// 	name: 'Lisa'
+	// },
+	// {
+	// 	img: maggie,
+	// 	name: 'Maggie'
+	// },
+	// {
+	// 	img: marge,
+	// 	name: 'Marge'
+	// },
+	// {
+	// 	img: milhouse,
+	// 	name: 'Milhouse'
+	// },
+	// {
+	// 	img: moe,
+	// 	name: 'Moe'
+	// }
 ];
 
 const randomizeArray = (arr) => {
