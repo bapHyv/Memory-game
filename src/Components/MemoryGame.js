@@ -23,16 +23,19 @@ const MemoryGame = () => {
 	const [timer, setTimer] = useState(time);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [numberOfClick, setNumberOfClick] = useState(0);
+	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([])
 
 	useEffect(() => {
 		if (winCount === randomizedImagesArray.length / 2) {
 			setTimeout(() => {
-				alert(
-					`You won in ${numberOfClick} clicks and you spent ${time} seconde`
-				);
+				alert(`You won in ${time - timer} seconds and ${numberOfClick} clicks`);
+				resetLocalState();
+				clearInterval(intervalAndTimoutId[0]);
+				clearTimeout(intervalAndTimoutId[1]);
+				setIntervalAndTimoutId([])
 			}, 1000);
 		}
-	}, [winCount]);
+	}, [winCount, lost]);
 
 	const clickingOnCard = (name, index) => {
 		if (imgFlipped.length === 2) {
@@ -78,7 +81,7 @@ const MemoryGame = () => {
 
 	const resetImgArr = () => {
 		imgArray.map(e => {
-			return (e.flipped = false), (e.matched = false);
+			return (e.flipped = false), (e.matched = false)
 		});
 	};
 
@@ -87,31 +90,40 @@ const MemoryGame = () => {
 		setImgFlipped([]);
 		setWinCount(0);
 		setLost(false);
-		setTimer(time)
+		setTimer(time);
 		setGameStarted(false);
 		setNumberOfClick(0);
-	}
+	};
 
 	const handleClickOptions = () => {
-		resetLocalState()
+		resetLocalState();
 	};
+
+	const timerInterval = () => {
+		const intervalId = setInterval(() => {
+			setTimer(prevTimer => prevTimer - 1);
+		}, 1000)
+		intervalAndTimoutId.push(intervalId)
+	}
+
+	const loseTimeout = () => {
+		const timeoutId = setTimeout(() => {
+			alert('LOSER !!');
+			resetLocalState();
+			clearInterval(intervalAndTimoutId[0]);
+			clearTimeout(intervalAndTimoutId[1]);
+			setIntervalAndTimoutId([])
+		}, timer * 1000 + 1000);
+		intervalAndTimoutId.push(timeoutId)
+	}
+
 
 	const startGame = () => {
 		resetImgArr();
 		setImgFlipped([]);
 		setGameStarted(true);
-
-		const intervalId = setInterval(() => {
-			setTimer(prevTimer => prevTimer - 1);
-		}, 1000);
-		setTimeout(() => {
-			clearInterval(intervalId);
-			setLost(true);
-			setTimeout(() => {
-				alert('looser !');
-				resetLocalState()
-			}, 1000);
-		}, time * 1000);
+		timerInterval()
+		loseTimeout()
 	};
 
 	return (
@@ -124,7 +136,10 @@ const MemoryGame = () => {
 					<h2>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
-					<button onClick={startGame} disabled={gameStarted ? true : false}>
+					<button
+						onClick={() => startGame()}
+						disabled={gameStarted ? true : false}
+					>
 						start the game
 					</button>
 				</Bounce>
