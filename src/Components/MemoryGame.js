@@ -96,7 +96,7 @@ const MemoryGame = () => {
 								key={i}
 								cardname={e.name}
 							>
-								<img className="frontCard" src={e.img} alt={e.name} />
+								<img className={`frontCard ${e.matched ? 'matched' : '' }`} src={e.img} alt={e.name} />
 								<img className="backCard" src={backFace} alt="back face" />
 							</div>
 						);

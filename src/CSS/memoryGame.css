@@ -1,7 +1,7 @@
 /* GAME CONTAINER */
 .cards {
 	width: 50%;
-	height: 620px;
+	height: 90vh;
 	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
@@ -50,6 +50,22 @@ img{
 .card.flip.matched {
 	pointer-events: none;
 }
+
+.frontCard.matched {
+	opacity: 0.8;
+	animation: lighting 3s linear infinite 100ms
+}
+
+@keyframes lighting {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.6;
+	}
+}
+
+
 
 .frontCard {
 	transform: rotateY(180deg);
