@@ -51,6 +51,11 @@ img{
 	pointer-events: none;
 }
 
+.card.disabled {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
 .frontCard.matched {
 	opacity: 0.6;
 	animation: lighting 1s linear 1 100ms

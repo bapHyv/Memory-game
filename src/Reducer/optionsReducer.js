@@ -1,7 +1,7 @@
 export const initialOptionsReducer = {
     difficulty: 12,
     theme: null,
-    time: 30
+    time: 20
 }
 
 export const optionsReducer = (state, action) => {

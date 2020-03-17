@@ -12,7 +12,6 @@ import optionsContext from '../Context/optionsContext';
 
 const MemoryGame = () => {
 	const [gameState, gameDispatch] = useContext(gameContext);
-	const { numberOfClicks } = gameState;
 
 	const [optionsState, optionsDispatch] = useContext(optionsContext);
 	const { difficulty, theme, time } = optionsState;
@@ -20,13 +19,17 @@ const MemoryGame = () => {
 	const [imgArray, setImgArr] = useState(randomizedImagesArray);
 	const [imgFlipped, setImgFlipped] = useState([]);
 	const [winCount, setWinCount] = useState(0);
-	const [win, setWin] = useState(false);
 	const [lost, setLost] = useState(false);
+	const [timer, setTimer] = useState(time);
+	const [gameStarted, setGameStarted] = useState(false);
+	const [numberOfClick, setNumberOfClick] = useState(0);
 
 	useEffect(() => {
 		if (winCount === randomizedImagesArray.length / 2) {
 			setTimeout(() => {
-				alert(`You won in ${numberOfClicks} clicks and you spent ${time} seconde`);
+				alert(
+					`You won in ${numberOfClick} clicks and you spent ${time} seconde`
+				);
 			}, 1000);
 		}
 	}, [winCount]);
@@ -52,9 +55,7 @@ const MemoryGame = () => {
 				checkingMatch();
 			}, 800);
 		}
-		gameDispatch({
-			type: 'SET_NUMBER_CLICKS'
-		});
+		setNumberOfClick(prevNumberOfClick => prevNumberOfClick + 1);
 	};
 
 	const checkingMatch = () => {
@@ -75,10 +76,42 @@ const MemoryGame = () => {
 		setImgFlipped([]);
 	};
 
-	const handleClickButton = () => {
-		gameDispatch({
-			type: 'RESET_NUMBER_CLICKS'
+	const resetImgArr = () => {
+		imgArray.map(e => {
+			return (e.flipped = false), (e.matched = false);
 		});
+	};
+
+	const resetLocalState = () => {
+		resetImgArr();
+		setImgFlipped([]);
+		setWinCount(0);
+		setLost(false);
+		setTimer(time)
+		setGameStarted(false);
+		setNumberOfClick(0);
+	}
+
+	const handleClickOptions = () => {
+		resetLocalState()
+	};
+
+	const startGame = () => {
+		resetImgArr();
+		setImgFlipped([]);
+		setGameStarted(true);
+
+		const intervalId = setInterval(() => {
+			setTimer(prevTimer => prevTimer - 1);
+		}, 1000);
+		setTimeout(() => {
+			clearInterval(intervalId);
+			setLost(true);
+			setTimeout(() => {
+				alert('looser !');
+				resetLocalState()
+			}, 1000);
+		}, time * 1000);
 	};
 
 	return (
@@ -88,10 +121,15 @@ const MemoryGame = () => {
 			</Bounce>
 			<div className="timeAndClick">
 				<Bounce left>
-					<h2>timer: {time}</h2>
+					<h2>timer: {timer}</h2>
+				</Bounce>
+				<Bounce>
+					<button onClick={startGame} disabled={gameStarted ? true : false}>
+						start the game
+					</button>
 				</Bounce>
 				<Bounce right>
-					<h2>click: {numberOfClicks}</h2>
+					<h2>click: {numberOfClick}</h2>
 				</Bounce>
 			</div>
 			<Bounce left>
@@ -99,9 +137,13 @@ const MemoryGame = () => {
 					{imgArray.map((e, i, a) => {
 						return (
 							<div
-								className={`card ${e.flipped ? 'flip' : ''} ${
-									e.matched ? 'matched' : ''
-								}`}
+								className={
+									!gameStarted
+										? 'card disabled'
+										: `card ${e.flipped ? 'flip' : ''} ${
+												e.matched ? 'matched' : ''
+										  }`
+								}
 								onClick={() => clickingOnCard(e.name, i)}
 								key={i}
 								cardname={e.name}
@@ -120,7 +162,12 @@ const MemoryGame = () => {
 			<Bounce bottom>
 				<div className="optionsButton">
 					<Link to="/">
-						<button onClick={handleClickButton}>Options</button>
+						<button
+							onClick={handleClickOptions}
+							disabled={gameStarted ? true : false}
+						>
+							Options
+						</button>
 					</Link>
 				</div>
 			</Bounce>
