@@ -42,6 +42,10 @@
 	backface-visibility: hidden;
 }
 
+.card.flip.matched {
+	pointer-events: none;
+}
+
 .frontCard {
 	transform: rotateY(180deg);
 }

@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import '../CSS/memoryGame.css';
 
 import { Link } from 'react-router-dom';
 import Bounce from 'react-reveal';
 
-import { frontFace, backFace } from '../DataImages';
+import { frontFace, backFace, randomizedImagesArray } from '../DataImages';
 
 import gameContext from '../Context/gameContext';
 import optionsContext from '../Context/optionsContext';
@@ -17,43 +17,61 @@ const MemoryGame = () => {
 	const [optionsState, optionsDispatch] = useContext(optionsContext);
 	const { difficulty, theme, time } = optionsState;
 
-	const handleClickCard = event => {
-		event.currentTarget.className === 'card'
-			? (event.currentTarget.className = 'card flip')
-			: (event.currentTarget.className = 'card');
+	const [imgArray, setImgArr] = useState(randomizedImagesArray);
+	const [imgFlipped, setImgFlipped] = useState([]);
+
+	useEffect(() => {
+		console.log(imgArray);
+	}, []);
+
+	const clickingOnCard = (name, index) => {
+		if (imgFlipped.length === 2) {
+			setTimeout(() => {
+				checkingMatch()
+			}, 500);
+		} else {
+			let image = { name, index };
+			let imgFlippedTemp = imgFlipped
+			let imgArrayTemp = imgArray;
+
+			imgArrayTemp[index].flipped = true;
+			imgFlippedTemp.push(image)
+			setImgArr(imgArrayTemp);
+			setImgFlipped(imgFlippedTemp)
+		}
+
+		if (imgFlipped.length === 2) {
+			setTimeout(() => {
+				checkingMatch()
+			}, 800);
+		}
 		gameDispatch({
 			type: 'SET_NUMBER_CLICKS'
-		})
+		});
+	};
+
+	const checkingMatch = () => {
+		let imgArrayTemp = imgArray;
+
+		if (
+			imgFlipped[0].name === imgFlipped[1].name &&
+			imgFlipped[0].index !== imgFlipped[1].index
+		) {
+			imgArrayTemp[imgFlipped[0].index].matched = true;
+			imgArrayTemp[imgFlipped[1].index].matched = true;
+		} else {
+			imgArrayTemp[imgFlipped[0].index].flipped = false;
+			imgArrayTemp[imgFlipped[1].index].flipped = false;
+		}
+		setImgArr(imgArrayTemp);
+		setImgFlipped([])
 	};
 
 	const handleClickButton = () => {
 		gameDispatch({
-			type: "RESET_NUMBER_CLICKS"
-		})
-	}
-
-	const cards = [];
-
-	for (let i = 0; i < (difficulty / 2); i++) {
-		for (let j = 0; j < 2; j++) {
-			cards.push(
-				<div
-					className="card"
-					onClick={handleClickCard}
-					key={j % 2 === 0 ? i : i + frontFace.length}
-				>
-					<img
-						className="frontCard"
-						src={frontFace[i].img}
-						alt={frontFace[i].name}
-					/>
-					<img className="backCard" src={backFace} alt="back face" />
-				</div>
-			);
-		}
-	}
-
-	console.log('game state:', gameState);
+			type: 'RESET_NUMBER_CLICKS'
+		});
+	};
 
 	return (
 		<div className="memoryPage">
@@ -69,7 +87,21 @@ const MemoryGame = () => {
 				</Bounce>
 			</div>
 			<Bounce left>
-				<div className="cards">{cards}</div>
+				<div className="cards">
+					{imgArray.map((e, i, a) => {
+						return (
+							<div
+								className={`card ${e.flipped ? 'flip' : ''} ${e.matched ? 'matched' : '' }`}
+								onClick={() => clickingOnCard(e.name, i)}
+								key={i}
+								cardname={e.name}
+							>
+								<img className="frontCard" src={e.img} alt={e.name} />
+								<img className="backCard" src={backFace} alt="back face" />
+							</div>
+						);
+					})}
+				</div>
 			</Bounce>
 			<Bounce bottom>
 				<div className="optionsButton">
