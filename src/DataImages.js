@@ -14,10 +14,10 @@ import donut from './Assets/Images/Simpson/donut.png';
 
 export const backFace = donut;
 
-export const frontFace = [
+const frontFace12cards = [
 	{
 		img: apu,
-		name: 'Apu',
+		name: 'Apu'
 	},
 	{
 		img: bart,
@@ -38,53 +38,39 @@ export const frontFace = [
 	{
 		img: krusty,
 		name: 'Krusty'
-	},
-	// {
-	// 	img: lenny,
-	// 	name: 'Lenny'
-	// },
-	// {
-	// 	img: lisa,
-	// 	name: 'Lisa'
-	// },
-	// {
-	// 	img: maggie,
-	// 	name: 'Maggie'
-	// },
-	// {
-	// 	img: marge,
-	// 	name: 'Marge'
-	// },
-	// {
-	// 	img: milhouse,
-	// 	name: 'Milhouse'
-	// },
-	// {
-	// 	img: moe,
-	// 	name: 'Moe'
-	// }
+	}
 ];
 
-const randomizeArray = (arr) => {
-	let index = arr.length;
-	let stockingElement, randomIndex
-
-	while (0 !== index) {
-		randomIndex = Math.floor(Math.random() * index);
-		index -= 1
-		stockingElement = arr[index]
-		arr[index] = arr[randomIndex]
-		arr[randomIndex] = stockingElement
+const frontFace24Cards = [
+	{
+		img: lenny,
+		name: 'Lenny'
+	},
+	{
+		img: lisa,
+		name: 'Lisa'
+	},
+	{
+		img: maggie,
+		name: 'Maggie'
+	},
+	{
+		img: marge,
+		name: 'Marge'
+	},
+	{
+		img: milhouse,
+		name: 'Milhouse'
+	},
+	{
+		img: moe,
+		name: 'Moe'
 	}
-	return arr
-}
+];
 
-export const imagesFrontFace = frontFace.concat(frontFace)
+export const imagesFrontFace12cards = frontFace12cards.concat(frontFace12cards);
 
-export const randomizedImagesArray = randomizeArray(imagesFrontFace).map(e => {
-	return {
-		...e,
-		flipped: false,
-		matched: false
-	}
-})
+export const imagesFrontFace24cards = imagesFrontFace12cards.concat(frontFace24Cards.concat(frontFace24Cards))
+
+console.log(imagesFrontFace12cards)
+console.log(imagesFrontFace24cards)

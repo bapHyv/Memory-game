@@ -1,5 +1,5 @@
 export const initialOptionsReducer = {
-    difficulty: 12,
+    difficulty: 24,
     theme: null,
     time: 30
 }

@@ -6,21 +6,20 @@ import { Link } from 'react-router-dom';
 import Bounce from 'react-reveal';
 
 import {
-	frontFace,
 	backFace,
-	randomizedImagesArray,
-	imagesFrontFace
+	imagesFrontFace12cards,
+	imagesFrontFace24cards
 } from '../DataImages';
 
-import gameContext from '../Context/gameContext';
+// import gameContext from '../Context/gameContext';
 import optionsContext from '../Context/optionsContext';
 
 const MemoryGame = () => {
-	const [gameState, gameDispatch] = useContext(gameContext);
+	// const [gameState, gameDispatch] = useContext(gameContext);
 
-	const [optionsState, optionsDispatch] = useContext(optionsContext);
+	const [optionsState] = useContext(optionsContext);
 	const { difficulty, theme, time } = optionsState;
-
+	// The imgArray is set to an array with cards by default because if imgArray was an empty array, the winning condition would be triggered at the beginning of the game
 	const [imgArray, setImgArr] = useState(['cards']);
 	const [imgFlipped, setImgFlipped] = useState([]);
 	const [winCount, setWinCount] = useState(0);
@@ -33,8 +32,9 @@ const MemoryGame = () => {
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
+		// shuffle the cards inside the array at the beggining of the game, when the user win and when the user lose
 		setImgArr(
-			randomizeArray(imagesFrontFace).map(e => {
+			randomizeArray(difficulty === 12 ? imagesFrontFace12cards : imagesFrontFace24cards).map(e => {
 				return {
 					...e,
 					flipped: false,
@@ -200,14 +200,14 @@ const MemoryGame = () => {
 				</Bounce>
 			</div>
 			<Bounce left>
-				<div className="cards">
+				<div className={`cards cards${difficulty}`}>
 					{imgArray.map((e, i, a) => {
 						return (
 							<div
 								className={
 									!gameStarted
-										? 'card disabled'
-										: `card ${e.flipped ? 'flip' : ''} ${
+										? `card card${difficulty} disabled`
+										: `card card${difficulty} ${e.flipped ? 'flip' : ''} ${
 												e.matched ? 'matched' : ''
 										  }`
 								}
