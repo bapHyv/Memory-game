@@ -25,6 +25,12 @@ const MemoryGame = () => {
 	const [numberOfClick, setNumberOfClick] = useState(0);
 	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([])
 
+	// COMPONENT DID MOUNT
+	useEffect(() => {
+
+	}, [])
+
+	// COMPONENT DID UPDATE
 	useEffect(() => {
 		if (winCount === randomizedImagesArray.length / 2) {
 			setTimeout(() => {
@@ -36,6 +42,20 @@ const MemoryGame = () => {
 			}, 1000);
 		}
 	}, [winCount, lost]);
+
+	const randomizeArray = (arr) => {
+		let index = arr.length;
+		let stockingElement, randomIndex
+	
+		while (0 !== index) {
+			randomIndex = Math.floor(Math.random() * index);
+			index -= 1
+			stockingElement = arr[index]
+			arr[index] = arr[randomIndex]
+			arr[randomIndex] = stockingElement
+		}
+		return arr
+	}
 
 	const clickingOnCard = (name, index) => {
 		if (imgFlipped.length === 2) {

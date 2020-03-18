@@ -79,7 +79,7 @@ const randomizeArray = (arr) => {
 	return arr
 }
 
-const imagesFrontFace = frontFace.concat(frontFace)
+export const imagesFrontFace = frontFace.concat(frontFace)
 
 export const randomizedImagesArray = randomizeArray(imagesFrontFace).map(e => {
 	return {
