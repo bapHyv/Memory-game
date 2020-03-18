@@ -21,6 +21,7 @@
 	transition: transform 0.3s;
 }
 
+
 /* TRIGGERED WHEN THE ELEMENT CARD GETS CLICKED */
 .card:active {
 	transform: scale(0.97);
