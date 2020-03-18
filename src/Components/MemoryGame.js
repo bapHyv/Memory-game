@@ -5,7 +5,7 @@ import '../CSS/memoryGame.css';
 import { Link } from 'react-router-dom';
 import Bounce from 'react-reveal';
 
-import { frontFace, backFace, randomizedImagesArray } from '../DataImages';
+import { frontFace, backFace, randomizedImagesArray, imagesFrontFace } from '../DataImages';
 
 import gameContext from '../Context/gameContext';
 import optionsContext from '../Context/optionsContext';
@@ -16,9 +16,10 @@ const MemoryGame = () => {
 	const [optionsState, optionsDispatch] = useContext(optionsContext);
 	const { difficulty, theme, time } = optionsState;
 
-	const [imgArray, setImgArr] = useState(randomizedImagesArray);
+	const [imgArray, setImgArr] = useState(['cards']);
 	const [imgFlipped, setImgFlipped] = useState([]);
 	const [winCount, setWinCount] = useState(0);
+	const [win, setWin] = useState(false)
 	const [lost, setLost] = useState(false);
 	const [timer, setTimer] = useState(time);
 	const [gameStarted, setGameStarted] = useState(false);
@@ -27,21 +28,28 @@ const MemoryGame = () => {
 
 	// COMPONENT DID MOUNT
 	useEffect(() => {
-
-	}, [])
+		setImgArr(randomizeArray(imagesFrontFace).map(e => {
+			return {
+				...e,
+				flipped: false,
+				matched: false
+			}
+		}))
+	}, [win, lost])
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
-		if (winCount === randomizedImagesArray.length / 2) {
+		if (winCount === imgArray.length / 2) {
 			setTimeout(() => {
-				alert(`You won in ${time - timer} seconds and ${numberOfClick} clicks`);
+				alert(`You won in ${time - timer + 1} seconds and ${numberOfClick} clicks`);
+				setWin(prevWin => !prevWin)
 				resetLocalState();
 				clearInterval(intervalAndTimoutId[0]);
 				clearTimeout(intervalAndTimoutId[1]);
 				setIntervalAndTimoutId([])
 			}, 1000);
 		}
-	}, [winCount, lost]);
+	}, [winCount]);
 
 	const randomizeArray = (arr) => {
 		let index = arr.length;
@@ -109,6 +117,7 @@ const MemoryGame = () => {
 		resetImgArr();
 		setImgFlipped([]);
 		setWinCount(0);
+		setWin(false)
 		setLost(false);
 		setTimer(time);
 		setGameStarted(false);
@@ -129,6 +138,7 @@ const MemoryGame = () => {
 	const loseTimeout = () => {
 		const timeoutId = setTimeout(() => {
 			alert('LOSER !!');
+			setLost(prevLost => !prevLost)
 			resetLocalState();
 			clearInterval(intervalAndTimoutId[0]);
 			clearTimeout(intervalAndTimoutId[1]);
