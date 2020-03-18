@@ -26,7 +26,7 @@ const MemoryGame = () => {
 	const [numberOfClick, setNumberOfClick] = useState(0);
 	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([])
 
-	// COMPONENT DID MOUNT
+	// COMPONENT DID UPDATE
 	useEffect(() => {
 		setImgArr(randomizeArray(imagesFrontFace).map(e => {
 			return {
