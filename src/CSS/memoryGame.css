@@ -17,7 +17,8 @@
 	margin: 5px;
 	transform: scale(1);
 	transform-style: preserve-3d;
-	transition: transform 0.5s;
+	/* Card rotation */
+	transition: transform 0.3s;
 }
 
 /* TRIGGERED WHEN THE ELEMENT CARD GETS CLICKED */
@@ -28,6 +29,7 @@
 
 .card.flip {
 	transform: rotateY(180deg);
+	pointer-events: none;
 }
 
 /* IMAGES CARD */

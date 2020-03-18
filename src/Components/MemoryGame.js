@@ -5,7 +5,12 @@ import '../CSS/memoryGame.css';
 import { Link } from 'react-router-dom';
 import Bounce from 'react-reveal';
 
-import { frontFace, backFace, randomizedImagesArray, imagesFrontFace } from '../DataImages';
+import {
+	frontFace,
+	backFace,
+	randomizedImagesArray,
+	imagesFrontFace
+} from '../DataImages';
 
 import gameContext from '../Context/gameContext';
 import optionsContext from '../Context/optionsContext';
@@ -19,51 +24,65 @@ const MemoryGame = () => {
 	const [imgArray, setImgArr] = useState(['cards']);
 	const [imgFlipped, setImgFlipped] = useState([]);
 	const [winCount, setWinCount] = useState(0);
-	const [win, setWin] = useState(false)
+	const [win, setWin] = useState(false);
 	const [lost, setLost] = useState(false);
 	const [timer, setTimer] = useState(time);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [numberOfClick, setNumberOfClick] = useState(0);
-	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([])
+	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([]);
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
-		setImgArr(randomizeArray(imagesFrontFace).map(e => {
-			return {
-				...e,
-				flipped: false,
-				matched: false
-			}
-		}))
-	}, [win, lost])
+		setImgArr(
+			randomizeArray(imagesFrontFace).map(e => {
+				return {
+					...e,
+					flipped: false,
+					matched: false
+				};
+			})
+		);
+	}, [win, lost]);
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
 		if (winCount === imgArray.length / 2) {
 			setTimeout(() => {
-				alert(`You won in ${time - timer + 1} seconds and ${numberOfClick} clicks`);
-				setWin(prevWin => !prevWin)
+				alert(
+					`You won in ${time - timer + 1} seconds and ${numberOfClick} clicks`
+				);
+				setWin(prevWin => !prevWin);
 				resetLocalState();
 				clearInterval(intervalAndTimoutId[0]);
 				clearTimeout(intervalAndTimoutId[1]);
-				setIntervalAndTimoutId([])
+				setIntervalAndTimoutId([]);
 			}, 1000);
 		}
-	}, [winCount]);
 
-	const randomizeArray = (arr) => {
+		/*
+			When 2 cards are flipped and not matched, if the user click on an other card during the animation that flip back the card, 
+			this 3rd card can stay stuck. the line of code under prevent this bug
+		*/
+		imgArray.map(e => {
+			if (e.flipped === true && imgFlipped.length === 0) {
+				resetImgArr();
+			}
+		});
+	}, [winCount, numberOfClick]);
+
+	const randomizeArray = arr => {
 		let index = arr.length;
-		let stockingElement, randomIndex
-	
+		let stockingElement, randomIndex;
+
 		while (0 !== index) {
 			randomIndex = Math.floor(Math.random() * index);
-			index -= 1
-			stockingElement = arr[index]
-			arr[index] = arr[randomIndex]
-			arr[randomIndex] = stockingElement
+			index -= 1;
+			stockingElement = arr[index];
+			arr[index] = arr[randomIndex];
+			arr[randomIndex] = stockingElement;
 		}
-		return arr
-	}
+		return arr;
+	};
 
 	const clickingOnCard = (name, index) => {
 		if (imgFlipped.length === 2) {
@@ -74,17 +93,22 @@ const MemoryGame = () => {
 			let image = { name, index };
 			let imgFlippedTemp = imgFlipped;
 			let imgArrayTemp = imgArray;
-
-			imgArrayTemp[index].flipped = true;
-			imgFlippedTemp.push(image);
-			setImgArr(imgArrayTemp);
-			setImgFlipped(imgFlippedTemp);
+			/*
+				When 2 cards are flipped and not matched, if the user click on an other card during the animation that flip back the card, 
+				this 3rd card can stay stuck. the line of code under prevent this bug
+			*/
+			if (imgFlippedTemp.length < 2) {
+				imgArrayTemp[index].flipped = true;
+				imgFlippedTemp.push(image);
+				setImgArr(imgArrayTemp);
+				setImgFlipped(imgFlippedTemp);
+			}
 		}
 
 		if (imgFlipped.length === 2) {
 			setTimeout(() => {
 				checkingMatch();
-			}, 800);
+			}, 500);
 		}
 		setNumberOfClick(prevNumberOfClick => prevNumberOfClick + 1);
 	};
@@ -100,6 +124,7 @@ const MemoryGame = () => {
 			imgArrayTemp[imgFlipped[1].index].matched = true;
 			setWinCount(winCount + 1);
 		} else {
+			console.log('here');
 			imgArrayTemp[imgFlipped[0].index].flipped = false;
 			imgArrayTemp[imgFlipped[1].index].flipped = false;
 		}
@@ -109,7 +134,7 @@ const MemoryGame = () => {
 
 	const resetImgArr = () => {
 		imgArray.map(e => {
-			return (e.flipped = false), (e.matched = false)
+			return (e.flipped = false), (e.matched = false);
 		});
 	};
 
@@ -117,8 +142,6 @@ const MemoryGame = () => {
 		resetImgArr();
 		setImgFlipped([]);
 		setWinCount(0);
-		setWin(false)
-		setLost(false);
 		setTimer(time);
 		setGameStarted(false);
 		setNumberOfClick(0);
@@ -131,29 +154,28 @@ const MemoryGame = () => {
 	const timerInterval = () => {
 		const intervalId = setInterval(() => {
 			setTimer(prevTimer => prevTimer - 1);
-		}, 1000)
-		intervalAndTimoutId.push(intervalId)
-	}
+		}, 1000);
+		intervalAndTimoutId.push(intervalId);
+	};
 
 	const loseTimeout = () => {
 		const timeoutId = setTimeout(() => {
 			alert('LOSER !!');
-			setLost(prevLost => !prevLost)
+			setLost(prevLost => !prevLost);
 			resetLocalState();
 			clearInterval(intervalAndTimoutId[0]);
 			clearTimeout(intervalAndTimoutId[1]);
-			setIntervalAndTimoutId([])
+			setIntervalAndTimoutId([]);
 		}, timer * 1000 + 1000);
-		intervalAndTimoutId.push(timeoutId)
-	}
-
+		intervalAndTimoutId.push(timeoutId);
+	};
 
 	const startGame = () => {
 		resetImgArr();
 		setImgFlipped([]);
 		setGameStarted(true);
-		timerInterval()
-		loseTimeout()
+		timerInterval();
+		loseTimeout();
 	};
 
 	return (
