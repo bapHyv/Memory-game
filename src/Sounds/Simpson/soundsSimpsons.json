@@ -1,0 +1,20 @@
+{
+  "urls": [
+    "soundsSimpsons.webm",
+    "soundsSimpsons.mp3"
+  ],
+  "sprite": {
+    "doh": [
+      0,
+      705.3061224489796
+    ],
+    "Ouh_Pinaise": [
+      2000,
+      1018.7755102040815
+    ],
+    "Simpson_theme": [
+      5000,
+      98847.34693877552
+    ]
+  }
+}
