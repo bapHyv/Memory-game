@@ -5,20 +5,15 @@ import '../CSS/memoryGame.css';
 import { Link } from 'react-router-dom';
 import Bounce from 'react-reveal';
 
+import randomiseArray from '../randomiseArrayAlgorithm';
+
 import { Howler } from 'howler';
 import { soundsTheme } from '../dataSounds';
-import {
-	backFace,
-	imagesFrontFace12cards,
-	imagesFrontFace24cards
-} from '../DataImages';
+import { backFace, imagesFrontFace12cards, imagesFrontFace24cards } from '../dataImages';
 
-// import gameContext from '../Context/gameContext';
 import optionsContext from '../Context/optionsContext';
 
 const MemoryGame = () => {
-	// const [gameState, gameDispatch] = useContext(gameContext);
-
 	const [optionsState] = useContext(optionsContext);
 	const { difficulty, theme, time } = optionsState;
 	// The imgArray is set to an array with cards by default because if imgArray was an empty array, the winning condition would be triggered at the beginning of the game
@@ -36,26 +31,23 @@ const MemoryGame = () => {
 	// COMPONENT DID MOUNT
 	useEffect(() => {
 		Howler.volume(0.5);
-		console.log('DID MOUNT',soundsTheme);
 	}, []);
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
+		// keep track of the Simpson_theme song id through out the game because at the beginning of each game, a new instance of Howl is created
 		soundsTheme._sounds.map(e => {
 			if (e._sprite === 'Simpson_theme') {
 				setThemeSongId(e._id);
 			}
 		});
-		console.log(soundsTheme);
-	}, [numberOfClick, winCount, win, lost, gameStarted])
+	}, [numberOfClick, winCount, win, lost, gameStarted]);
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
-		// shuffle the cards inside the array at the beggining of the game, when the user win and when the user lose
+		// shuffle the cards inside the array at the beggining of the game and when the user win or lose
 		setImgArr(
-			randomizeArray(
-				difficulty === 12 ? imagesFrontFace12cards : imagesFrontFace24cards
-			).map(e => {
+			randomiseArray(difficulty === 12 ? imagesFrontFace12cards : imagesFrontFace24cards).map(e => {
 				return {
 					...e,
 					flipped: false,
@@ -70,9 +62,7 @@ const MemoryGame = () => {
 	useEffect(() => {
 		if (winCount === imgArray.length / 2) {
 			setTimeout(() => {
-				alert(
-					`You won in ${time - timer + 1} seconds and ${numberOfClick} clicks`
-				);
+				alert(`You won in ${time - timer + 1} seconds and ${numberOfClick} clicks`);
 				setWin(prevWin => !prevWin);
 				resetLocalState();
 				clearInterval(intervalAndTimoutId[0]);
@@ -80,7 +70,6 @@ const MemoryGame = () => {
 				setIntervalAndTimoutId([]);
 			}, 1000);
 		}
-
 		/*
 			When 2 cards are flipped and not matched, if the user click on an other card during the animation that flip back the card, 
 			this 3rd card can stay stuck. the line of code under prevent this bug
@@ -92,20 +81,7 @@ const MemoryGame = () => {
 		});
 	}, [winCount, numberOfClick]);
 
-	const randomizeArray = arr => {
-		let index = arr.length;
-		let stockingElement, randomIndex;
-
-		while (0 !== index) {
-			randomIndex = Math.floor(Math.random() * index);
-			index -= 1;
-			stockingElement = arr[index];
-			arr[index] = arr[randomIndex];
-			arr[randomIndex] = stockingElement;
-		}
-		return arr;
-	};
-
+	// CLICK EVENT ON CARD
 	const clickingOnCard = (name, index) => {
 		if (imgFlipped.length === 2) {
 			setTimeout(() => {
@@ -126,7 +102,6 @@ const MemoryGame = () => {
 				setImgFlipped(imgFlippedTemp);
 			}
 		}
-
 		if (imgFlipped.length === 2) {
 			setTimeout(() => {
 				checkingMatch();
@@ -135,24 +110,23 @@ const MemoryGame = () => {
 		setNumberOfClick(prevNumberOfClick => prevNumberOfClick + 1);
 	};
 
+	// MATCHING CONDITION
 	const checkingMatch = () => {
 		let imgArrayTemp = imgArray;
 
-		if (
-			imgFlipped[0].name === imgFlipped[1].name &&
-			imgFlipped[0].index !== imgFlipped[1].index
-		) {
+		if (imgFlipped[0].name === imgFlipped[1].name && imgFlipped[0].index !== imgFlipped[1].index) {
 			imgArrayTemp[imgFlipped[0].index].matched = true;
 			imgArrayTemp[imgFlipped[1].index].matched = true;
-			setWinCount(winCount + 1);
+			setWinCount(prevWinCount => prevWinCount + 1);
 			soundsTheme.play('Ouh_Pinaise');
 		} else {
-			console.log('here');
 			imgArrayTemp[imgFlipped[0].index].flipped = false;
 			imgArrayTemp[imgFlipped[1].index].flipped = false;
 			soundsTheme.play('doh');
 		}
+		// set the imgArr with the new state
 		setImgArr(imgArrayTemp);
+		// empty the imgFlipped array
 		setImgFlipped([]);
 	};
 
@@ -169,10 +143,8 @@ const MemoryGame = () => {
 		setTimer(time);
 		setGameStarted(false);
 		setNumberOfClick(0);
-	};
-
-	const handleClickOptions = () => {
-		resetLocalState();
+		setIntervalAndTimoutId([]);
+		setThemeSongId(0);
 	};
 
 	const timerInterval = () => {
@@ -200,7 +172,11 @@ const MemoryGame = () => {
 		setGameStarted(true);
 		timerInterval();
 		loseTimeout();
-		soundsTheme.volume(0.5).play('Simpson_theme');
+		soundsTheme.volume(0.3).play('Simpson_theme');
+	};
+
+	const handleClickOptions = () => {
+		resetLocalState();
 	};
 
 	return (
@@ -213,10 +189,7 @@ const MemoryGame = () => {
 					<h2>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
-					<button
-						onClick={() => startGame()}
-						disabled={gameStarted ? true : false}
-					>
+					<button onClick={() => startGame()} disabled={gameStarted ? true : false}>
 						start the game
 					</button>
 				</Bounce>
@@ -232,19 +205,13 @@ const MemoryGame = () => {
 								className={
 									!gameStarted
 										? `card card${difficulty} disabled`
-										: `card card${difficulty} ${e.flipped ? 'flip' : ''} ${
-												e.matched ? 'matched' : ''
-										  }`
+										: `card card${difficulty} ${e.flipped ? 'flip' : ''} ${e.matched ? 'matched' : ''}`
 								}
 								onClick={() => clickingOnCard(e.name, i)}
 								key={i}
 								cardname={e.name}
 							>
-								<img
-									className={`frontCard ${e.matched ? 'matched' : ''}`}
-									src={e.img}
-									alt={e.name}
-								/>
+								<img className={`frontCard ${e.matched ? 'matched' : ''}`} src={e.img} alt={e.name} />
 								<img className="backCard" src={backFace} alt="back face" />
 							</div>
 						);
@@ -254,10 +221,7 @@ const MemoryGame = () => {
 			<Bounce bottom>
 				<div className="optionsButton">
 					<Link to="/">
-						<button
-							onClick={handleClickOptions}
-							disabled={gameStarted ? true : false}
-						>
+						<button onClick={handleClickOptions} disabled={gameStarted ? true : false}>
 							Options
 						</button>
 					</Link>
