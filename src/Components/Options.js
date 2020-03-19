@@ -16,8 +16,6 @@ const Options = () => {
 	const [state, dispatch] = useContext(optionsContext);
 	const {difficulty, theme, time} = state
 
-	console.log('options state:', state)
-
 	useEffect(() => {
 		dispatch({
 			type: 'SET_DIFFICULTY',

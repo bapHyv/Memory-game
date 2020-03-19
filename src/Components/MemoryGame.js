@@ -5,6 +5,8 @@ import '../CSS/memoryGame.css';
 import { Link } from 'react-router-dom';
 import Bounce from 'react-reveal';
 
+import { Howler } from 'howler';
+import { soundsTheme } from '../dataSounds';
 import {
 	backFace,
 	imagesFrontFace12cards,
@@ -29,12 +31,31 @@ const MemoryGame = () => {
 	const [gameStarted, setGameStarted] = useState(false);
 	const [numberOfClick, setNumberOfClick] = useState(0);
 	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([]);
+	const [themeSongId, setThemeSongId] = useState(0);
+
+	// COMPONENT DID MOUNT
+	useEffect(() => {
+		Howler.volume(0.5);
+		console.log('DID MOUNT',soundsTheme);
+	}, []);
+
+	// COMPONENT DID UPDATE
+	useEffect(() => {
+		soundsTheme._sounds.map(e => {
+			if (e._sprite === 'Simpson_theme') {
+				setThemeSongId(e._id);
+			}
+		});
+		console.log(soundsTheme);
+	}, [numberOfClick, winCount, win, lost, gameStarted])
 
 	// COMPONENT DID UPDATE
 	useEffect(() => {
 		// shuffle the cards inside the array at the beggining of the game, when the user win and when the user lose
 		setImgArr(
-			randomizeArray(difficulty === 12 ? imagesFrontFace12cards : imagesFrontFace24cards).map(e => {
+			randomizeArray(
+				difficulty === 12 ? imagesFrontFace12cards : imagesFrontFace24cards
+			).map(e => {
 				return {
 					...e,
 					flipped: false,
@@ -42,6 +63,7 @@ const MemoryGame = () => {
 				};
 			})
 		);
+		soundsTheme.stop(themeSongId);
 	}, [win, lost]);
 
 	// COMPONENT DID UPDATE
@@ -123,10 +145,12 @@ const MemoryGame = () => {
 			imgArrayTemp[imgFlipped[0].index].matched = true;
 			imgArrayTemp[imgFlipped[1].index].matched = true;
 			setWinCount(winCount + 1);
+			soundsTheme.play('Ouh_Pinaise');
 		} else {
 			console.log('here');
 			imgArrayTemp[imgFlipped[0].index].flipped = false;
 			imgArrayTemp[imgFlipped[1].index].flipped = false;
+			soundsTheme.play('doh');
 		}
 		setImgArr(imgArrayTemp);
 		setImgFlipped([]);
@@ -176,6 +200,7 @@ const MemoryGame = () => {
 		setGameStarted(true);
 		timerInterval();
 		loseTimeout();
+		soundsTheme.volume(0.5).play('Simpson_theme');
 	};
 
 	return (

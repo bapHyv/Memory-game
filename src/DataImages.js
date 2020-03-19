@@ -71,6 +71,3 @@ const frontFace24Cards = [
 export const imagesFrontFace12cards = frontFace12cards.concat(frontFace12cards);
 
 export const imagesFrontFace24cards = imagesFrontFace12cards.concat(frontFace24Cards.concat(frontFace24Cards))
-
-console.log(imagesFrontFace12cards)
-console.log(imagesFrontFace24cards)
