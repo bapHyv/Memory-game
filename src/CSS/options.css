@@ -1,6 +1,11 @@
+@font-face {
+	font-family: BoldlyMissy;
+	src: url("../Assets/Fonts/BoldlyMissy.otf") format("opentype")
+}
+
 .gameOptions {
-	height: 720px;
-	width: 720px;
+	height: 100vh;
+	width: 100vw;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -14,7 +19,85 @@
 	justify-content: space-evenly;
 }
 
-select{
-	margin-top: 40%;
-	margin-bottom: 40%;
+h1 {
+	color: rgb(1, 165, 230);
+	font-size: 3em;
+	font-family: BoldlyMissy;
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	outline: 0;
+	box-shadow: none;
+	border: 0 !important;
+	background: #009DDC;
+	background-image: none;
+	flex: 1;
+	padding: 0 0.5em;
+	color: #fff;
+	cursor: pointer;
+	font-size: 1em;
+	font-family: 'Open Sans', sans-serif;
+}
+select::-ms-expand {
+	display: none;
+}
+.select {
+	position: relative;
+	display: flex;
+	width: 20em;
+	height: 3em;
+	line-height: 3;
+	background: #FED41D;
+	overflow: hidden;
+	border-radius: 0.25em;
+}
+.select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 1em;
+	background: #FED41D;
+	cursor: pointer;
+	pointer-events: none;
+	transition: 0.25s all ease;
+}
+.select:hover::after {
+	color: #009DDC;
+}
+
+.enabledBtn {
+	background: none;
+	color: #009DDC;
+	font-size: 200%;
+	width: 10em;
+	height: 2em;
+	border: 1px solid #FED41D;
+	border-radius: 0.25em;
+	transition: .6s;
+	overflow: hidden;
+	font-family: BoldlyMissy;
+}
+
+
+.enabledBtn:hover {
+	background-color: #009DDC;
+	color: #FED41D;
+}
+
+.disabledBtn {
+	background: none;
+	color: grey;
+	font-size: 200%;
+	width: 10em;
+	height: 2em;
+	border: 1px solid grey;
+	border-radius: 0.25em;
+	transition: .6s;
+	overflow: hidden;
+	font-family: BoldlyMissy;
 }
