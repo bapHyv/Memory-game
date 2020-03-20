@@ -75,7 +75,7 @@ select::-ms-expand {
 	color: #009DDC;
 	font-size: 200%;
 	width: 10em;
-	height: 2em;
+	height: 1.85em;
 	border: 1px solid #FED41D;
 	border-radius: 0.25em;
 	transition: .6s;
@@ -94,7 +94,7 @@ select::-ms-expand {
 	color: grey;
 	font-size: 200%;
 	width: 10em;
-	height: 2em;
+	height: 1.85em;
 	border: 1px solid grey;
 	border-radius: 0.25em;
 	transition: .6s;

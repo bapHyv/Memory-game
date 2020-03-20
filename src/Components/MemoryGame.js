@@ -181,15 +181,12 @@ const MemoryGame = () => {
 
 	return (
 		<div className="memoryPage">
-			<Bounce top>
-				<h1 className="title">Memory game</h1>
-			</Bounce>
 			<div className="timeAndClick">
 				<Bounce left>
 					<h2>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
-					<button onClick={() => startGame()} disabled={gameStarted ? true : false}>
+					<button onClick={() => startGame()} disabled={gameStarted ? true : false} className={gameStarted ? 'disabledBtn' : 'enabledBtn'}>
 						start the game
 					</button>
 				</Bounce>
@@ -221,7 +218,7 @@ const MemoryGame = () => {
 			<Bounce bottom>
 				<div className="optionsButton">
 					<Link to="/">
-						<button onClick={handleClickOptions} disabled={gameStarted ? true : false}>
+						<button onClick={handleClickOptions} disabled={gameStarted ? true : false} className={gameStarted ? 'disabledBtn' : 'enabledBtn'}>
 							Options
 						</button>
 					</Link>

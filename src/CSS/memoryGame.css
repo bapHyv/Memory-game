@@ -1,4 +1,10 @@
 /* GAME CONTAINER */
+h2 {
+	font-family: BoldlyMissy;
+	font-size: 3em;
+	color: #FED41D;
+	width: 12.5%;
+}
 .cards {
 	width: 50%;
 	height: 80vh;
@@ -64,7 +70,7 @@ img{
 
 
 .card.disabled {
-	opacity: 0.6;
+	opacity: 0.4;
 	pointer-events: none;
 }
 
