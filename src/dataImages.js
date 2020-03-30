@@ -12,9 +12,21 @@ import milhouse from './Assets/Images/Simpson/milhouse.png';
 import moe from './Assets/Images/Simpson/moe.png';
 import donut from './Assets/Images/Simpson/donut.png';
 
-export const backFace = donut;
+import butters from './Assets/Images/SouthPark/butters.png';
+import cartman from './Assets/Images/SouthPark/cartman.png';
+import chef from './Assets/Images/SouthPark/chef.png';
+import craig from './Assets/Images/SouthPark/craig.png';
+import kenny from './Assets/Images/SouthPark/kenny.png';
+import kyle from './Assets/Images/SouthPark/kyle.png';
+import liane from './Assets/Images/SouthPark/liane.png';
+import randy from './Assets/Images/SouthPark/randy.png';
+import stan from './Assets/Images/SouthPark/stan.png';
+import timmy from './Assets/Images/SouthPark/timmy.png';
+import token from './Assets/Images/SouthPark/token.png';
+import wendy from './Assets/Images/SouthPark/wendy.png';
+import southParkSign from './Assets/Images/SouthPark/South_Park_sign_logo.png';
 
-const frontFace12cards = [
+const frontFaceSimpsons12cards = [
 	{
 		img: apu,
 		name: 'Apu'
@@ -41,7 +53,7 @@ const frontFace12cards = [
 	}
 ];
 
-const frontFace24Cards = [
+const frontFaceSimpsons24Cards = [
 	{
 		img: lenny,
 		name: 'Lenny'
@@ -68,6 +80,69 @@ const frontFace24Cards = [
 	}
 ];
 
-export const imagesFrontFace12cards = frontFace12cards.concat(frontFace12cards);
+export const backFaceSimpsons = donut;
 
-export const imagesFrontFace24cards = imagesFrontFace12cards.concat(frontFace24Cards.concat(frontFace24Cards))
+export const imagesFrontFaceSimpsons12cards = frontFaceSimpsons12cards.concat(frontFaceSimpsons12cards);
+
+export const imagesFrontFaceSimpsons24cards = imagesFrontFaceSimpsons12cards.concat(frontFaceSimpsons24Cards.concat(frontFaceSimpsons24Cards));
+
+const frontFaceSouthPark12Cards = [
+	{
+		img: cartman,
+		name: 'Cartman'
+	},
+	{
+		img: kenny,
+		name: 'Kenny'
+	},
+	{
+		img: stan,
+		name: 'Stan'
+	},
+	{
+		img: kyle,
+		name: 'Kyle'
+	},
+	{
+		img: butters,
+		name: 'Butters'
+	},
+	{
+		img: timmy,
+		name: 'Timmy'
+	}
+];
+
+const frontFaceSouthPark24Cards = [
+	{
+		img: chef,
+		name: 'Chef'
+	},
+	{
+		img: liane,
+		name: 'Liane'
+	},
+	{
+		img: craig,
+		name: 'Craig'
+	},
+	{
+		img: randy,
+		name: 'Randy'
+	},
+	{
+		img: token,
+		name: 'Token'
+	},
+	{
+		img: wendy,
+		name: 'Wendy'
+	}
+];
+
+export const backFaceSouthPark = southParkSign
+
+export const imagesFrontFaceSouthPark12cards = frontFaceSouthPark12Cards.concat(frontFaceSouthPark12Cards);
+
+export const imagesFrontFaceSouthPark24cards = imagesFrontFaceSouthPark12cards.concat(frontFaceSouthPark24Cards.concat(frontFaceSouthPark24Cards));
+

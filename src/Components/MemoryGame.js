@@ -9,7 +9,14 @@ import randomiseArray from '../randomiseArrayAlgorithm';
 
 import { Howler } from 'howler';
 import { soundsTheme } from '../dataSounds';
-import { backFace, imagesFrontFace12cards, imagesFrontFace24cards } from '../dataImages';
+import {
+	backFaceSimpsons,
+	imagesFrontFaceSimpsons12cards,
+	imagesFrontFaceSimpsons24cards,
+	backFaceSouthPark,
+	imagesFrontFaceSouthPark12cards,
+	imagesFrontFaceSouthPark24cards
+} from '../dataImages';
 
 import optionsContext from '../Context/optionsContext';
 
@@ -47,7 +54,15 @@ const MemoryGame = () => {
 	useEffect(() => {
 		// shuffle the cards inside the array at the beggining of the game and when the user win or lose
 		setImgArr(
-			randomiseArray(difficulty === 12 ? imagesFrontFace12cards : imagesFrontFace24cards).map(e => {
+			randomiseArray(
+				theme === 'simpson'
+					? difficulty === 12
+						? imagesFrontFaceSimpsons12cards
+						: imagesFrontFaceSimpsons24cards
+					: difficulty === 12
+					? imagesFrontFaceSouthPark12cards
+					: imagesFrontFaceSouthPark24cards
+			).map(e => {
 				return {
 					...e,
 					flipped: false,
@@ -186,7 +201,11 @@ const MemoryGame = () => {
 					<h2>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
-					<button onClick={() => startGame()} disabled={gameStarted ? true : false} className={gameStarted ? 'disabledBtn' : 'enabledBtn'}>
+					<button
+						onClick={() => startGame()}
+						disabled={gameStarted ? true : false}
+						className={gameStarted ? 'disabledBtn' : 'enabledBtn'}
+					>
 						start the game
 					</button>
 				</Bounce>
@@ -209,7 +228,11 @@ const MemoryGame = () => {
 								cardname={e.name}
 							>
 								<img className={`frontCard ${e.matched ? 'matched' : ''}`} src={e.img} alt={e.name} />
-								<img className="backCard" src={backFace} alt="back face" />
+								<img
+									className="backCard"
+									src={theme === 'simpson' ? backFaceSimpsons : backFaceSouthPark}
+									alt="back face"
+								/>
 							</div>
 						);
 					})}
@@ -218,7 +241,11 @@ const MemoryGame = () => {
 			<Bounce bottom>
 				<div className="optionsButton">
 					<Link to="/">
-						<button onClick={handleClickOptions} disabled={gameStarted ? true : false} className={gameStarted ? 'disabledBtn' : 'enabledBtn'}>
+						<button
+							onClick={handleClickOptions}
+							disabled={gameStarted ? true : false}
+							className={gameStarted ? 'disabledBtn' : 'enabledBtn'}
+						>
 							Options
 						</button>
 					</Link>

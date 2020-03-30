@@ -1,6 +1,6 @@
 export const initialOptionsReducer = {
     difficulty: 24,
-    theme: null,
+    theme: 'simpson',
     time: 120
 }
 
