@@ -1,0 +1,20 @@
+{
+  "urls": [
+    "soundEffectSouthPark.webm",
+    "soundEffectSouthPark.mp3"
+  ],
+  "sprite": {
+    "ca_craint": [
+      0,
+      783.6734693877551
+    ],
+    "ouais": [
+      2000,
+      757.5510204081635
+    ],
+    "applaudissement": [
+      4000,
+      2246.5306122448983
+    ]
+  }
+}
