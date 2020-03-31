@@ -46,30 +46,30 @@ const Options = () => {
 		setTimeLocalState(parseInt(value));
 	};
 
+	const themeChoice = themeLocalState === 'southPark' ? 'southPark' : ''
+
 	return (
 		<div className="gameOptions">
 			<Bounce top>
-				<h1>
-					GAME OPTIONS
-				</h1>
+				<h1 className={themeChoice}>GAME OPTIONS</h1>
 			</Bounce>
 			<Bounce right cascade>
-				<div className="select">
-					<select name="" id="" onChange={handleSelectDifficulty}>
+				<div className={`select ${themeChoice}`}>
+					<select className={themeChoice} onChange={handleSelectDifficulty}>
 						<option value="">--Select a difficulty--</option>
 						<option value="12">12 cards</option>
 						<option value="24">24 cards</option>
 					</select>
 				</div>
-				<div className="select">
-					<select name="" id="" onChange={handleSelectTheme}>
+				<div className={`select ${themeChoice}`}>
+					<select className={themeChoice} onChange={handleSelectTheme}>
 						<option value="">--Select a theme--</option>
 						<option value="simpson">Simpson</option>
 						<option value="southPark">South Park</option>
 					</select>
 				</div>
-				<div className="select">
-					<select name="" id="" onChange={handleSelectTime}>
+				<div className={`select ${themeChoice}`}>
+					<select className={themeChoice} onChange={handleSelectTime}>
 						<option value="">--Select a time--</option>
 						<option value="30">30 secondes</option>
 						<option value="60">60 secondes</option>
@@ -80,7 +80,12 @@ const Options = () => {
 			</Bounce>
 			<Bounce bottom>
 				<Link to="/game">
-					<button disabled={difficulty && theme && time ? false : true} className={difficulty && theme && time ? "enabledBtn" : "disabledBtn"}>Start game</button>
+					<button
+						disabled={difficulty && theme && time ? false : true}
+						className={`${difficulty && theme && time ? 'enabledBtn' : 'disabledBtn'} ${themeChoice}`}
+					>
+						Start game
+					</button>
 				</Link>
 			</Bounce>
 		</div>

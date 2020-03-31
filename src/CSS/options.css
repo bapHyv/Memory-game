@@ -23,6 +23,12 @@ h1 {
 	color: rgb(1, 165, 230);
 	font-size: 3em;
 	font-family: BoldlyMissy;
+	transition: .6s;
+}
+
+h1.southPark {
+	color: #EE3253;
+	transition: .6s;
 }
 
 select {
@@ -41,10 +47,18 @@ select {
 	cursor: pointer;
 	font-size: 1em;
 	font-family: 'Open Sans', sans-serif;
+	transition: .6s;
 }
+
+select.southPark {
+	background: #EE3253;
+	transition: .6s;
+}
+
 select::-ms-expand {
 	display: none;
 }
+
 .select {
 	position: relative;
 	display: flex;
@@ -54,6 +68,9 @@ select::-ms-expand {
 	background: #FED41D;
 	overflow: hidden;
 	border-radius: 0.25em;
+}
+.select.southPark {
+	background: #FFE11D;
 }
 .select::after {
 	content: '\25BC';
@@ -65,9 +82,20 @@ select::-ms-expand {
 	cursor: pointer;
 	pointer-events: none;
 	transition: 0.25s all ease;
+	transition: .6s;
 }
+
+.select.southPark::after {
+	background: #00B8C4;
+	transition: .6s;
+}
+
 .select:hover::after {
 	color: #009DDC;
+}
+
+.select.southPark:hover::after {
+	color: #EE3253
 }
 
 .enabledBtn {
@@ -83,10 +111,19 @@ select::-ms-expand {
 	font-family: BoldlyMissy;
 }
 
+.enabledBtn.southPark {
+	border: 1px solid #EE3253;
+	color: #00B8C4;
+}
 
 .enabledBtn:hover {
 	background-color: #009DDC;
 	color: #FED41D;
+}
+
+.enabledBtn.southPark:hover {
+	background-color: #00B8C4;
+	color: #EE3253;
 }
 
 .disabledBtn {

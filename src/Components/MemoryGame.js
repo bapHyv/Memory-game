@@ -221,7 +221,7 @@ const MemoryGame = () => {
 			</div>
 			<Bounce left>
 				<div className={`cards cards${difficulty}`}>
-					{imgArray.map((e, i, a) => {
+					{imgArray.map((e, i) => {
 						return (
 							<div
 								className={
