@@ -204,19 +204,19 @@ const MemoryGame = () => {
 		<div className="memoryPage">
 			<div className="timeAndClick">
 				<Bounce left>
-					<h2>timer: {timer}</h2>
+					<h2 className={theme}>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
 					<button
 						onClick={() => startGame()}
 						disabled={gameStarted ? true : false}
-						className={gameStarted ? 'disabledBtn' : 'enabledBtn'}
+						className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
 					>
 						start the game
 					</button>
 				</Bounce>
 				<Bounce right>
-					<h2>click: {numberOfClick}</h2>
+					<h2 className={theme}>click: {numberOfClick}</h2>
 				</Bounce>
 			</div>
 			<Bounce left>
@@ -233,9 +233,9 @@ const MemoryGame = () => {
 								key={i}
 								cardname={e.name}
 							>
-								<img className={`frontCard ${e.matched ? 'matched' : ''}`} src={e.img} alt={e.name} />
+								<img className={`frontCard ${e.matched ? 'matched' : ''} ${theme}`} src={e.img} alt={e.name} />
 								<img
-									className="backCard"
+									className={`backCard ${theme}`}
 									src={theme === 'simpson' ? backFaceSimpsons : backFaceSouthPark}
 									alt="back face"
 								/>
@@ -250,7 +250,7 @@ const MemoryGame = () => {
 						<button
 							onClick={handleClickOptions}
 							disabled={gameStarted ? true : false}
-							className={gameStarted ? 'disabledBtn' : 'enabledBtn'}
+							className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
 						>
 							Options
 						</button>

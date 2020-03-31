@@ -5,6 +5,10 @@ h2 {
 	color: #FED41D;
 	width: 12.5%;
 }
+
+h2.southPark {
+	color: #EE3253
+}
 .cards {
 	width: 50%;
 	height: 80vh;
@@ -57,6 +61,14 @@ h2 {
 	border-radius: 10px;
 	background-color: #009DDC;
 	backface-visibility: hidden;
+}
+
+.frontCard.southPark {
+	background-color: #FFE11D;
+}
+
+.backCard.southPark {
+	background-color: #FFE11D;
 }
 
 img{

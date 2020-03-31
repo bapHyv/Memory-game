@@ -46,7 +46,7 @@ const Options = () => {
 		setTimeLocalState(parseInt(value));
 	};
 
-	const themeChoice = themeLocalState === 'southPark' ? 'southPark' : ''
+	const themeChoice = themeLocalState === 'southPark' ? 'southPark' : '';
 
 	return (
 		<div className="gameOptions">
@@ -55,17 +55,17 @@ const Options = () => {
 			</Bounce>
 			<Bounce right cascade>
 				<div className={`select ${themeChoice}`}>
-					<select className={themeChoice} onChange={handleSelectDifficulty}>
-						<option value="">--Select a difficulty--</option>
-						<option value="12">12 cards</option>
-						<option value="24">24 cards</option>
-					</select>
-				</div>
-				<div className={`select ${themeChoice}`}>
 					<select className={themeChoice} onChange={handleSelectTheme}>
 						<option value="">--Select a theme--</option>
 						<option value="simpson">Simpson</option>
 						<option value="southPark">South Park</option>
+					</select>
+				</div>
+				<div className={`select ${themeChoice}`}>
+					<select className={themeChoice} onChange={handleSelectDifficulty}>
+						<option value="">--Select a difficulty--</option>
+						<option value="12">12 cards</option>
+						<option value="24">24 cards</option>
 					</select>
 				</div>
 				<div className={`select ${themeChoice}`}>
