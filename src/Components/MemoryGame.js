@@ -8,7 +8,7 @@ import Bounce from 'react-reveal';
 import randomiseArray from '../randomiseArrayAlgorithm';
 
 import { Howler } from 'howler';
-import { soundsTheme } from '../dataSounds';
+import { soundEffectSimpson, themeSongSimpson, soundEffectSouthPark, themeSongSouthPark} from '../dataSounds';
 import {
 	backFaceSimpsons,
 	imagesFrontFaceSimpsons12cards,
@@ -43,8 +43,8 @@ const MemoryGame = () => {
 	// COMPONENT DID UPDATE
 	useEffect(() => {
 		// keep track of the Simpson_theme song id through out the game because at the beginning of each game, a new instance of Howl is created
-		soundsTheme._sounds.map(e => {
-			if (e._sprite === 'Simpson_theme') {
+		(theme === 'simpson' ? themeSongSimpson : themeSongSouthPark)._sounds.map(e => {
+			if (e._sprite === 'Simpson_theme' || e._sprite === "South_park_theme") {
 				setThemeSongId(e._id);
 			}
 		});
@@ -70,7 +70,7 @@ const MemoryGame = () => {
 				};
 			})
 		);
-		soundsTheme.stop(themeSongId);
+		(theme === 'simpson' ? themeSongSimpson : themeSongSouthPark).stop(themeSongId);
 	}, [win, lost]);
 
 	// COMPONENT DID UPDATE
@@ -133,11 +133,15 @@ const MemoryGame = () => {
 			imgArrayTemp[imgFlipped[0].index].matched = true;
 			imgArrayTemp[imgFlipped[1].index].matched = true;
 			setWinCount(prevWinCount => prevWinCount + 1);
-			soundsTheme.play('Ouh_Pinaise');
+			if (winCount === imgArray.length / 2 - 1) {
+				theme === 'simpson' ? soundEffectSimpson.play('woohoo') : soundEffectSouthPark.play('applaudissement');
+			} else {
+				theme === 'simpson' ? soundEffectSimpson.play('Ouh_Pinaise') : soundEffectSouthPark.play('ouais');
+			}
 		} else {
 			imgArrayTemp[imgFlipped[0].index].flipped = false;
 			imgArrayTemp[imgFlipped[1].index].flipped = false;
-			soundsTheme.play('doh');
+			theme === 'simpson' ? soundEffectSimpson.play('doh') : soundEffectSouthPark.play('ca_craint');
 		}
 		// set the imgArr with the new state
 		setImgArr(imgArrayTemp);
@@ -187,7 +191,9 @@ const MemoryGame = () => {
 		setGameStarted(true);
 		timerInterval();
 		loseTimeout();
-		soundsTheme.volume(0.3).play('Simpson_theme');
+		theme === 'simpson'
+			? themeSongSimpson.volume(0.4).loop(true).play('Simpson_theme')
+			: themeSongSouthPark.volume(0.4).loop(true).play('South_park_theme');
 	};
 
 	const handleClickOptions = () => {

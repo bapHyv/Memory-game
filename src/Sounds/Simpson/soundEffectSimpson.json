@@ -1,7 +1,7 @@
 {
   "urls": [
-    "soundsSimpsons.webm",
-    "soundsSimpsons.mp3"
+    "soundEffectSimpson.webm",
+    "soundEffectSimpson.mp3"
   ],
   "sprite": {
     "doh": [
@@ -12,9 +12,9 @@
       2000,
       1018.7755102040815
     ],
-    "Simpson_theme": [
+    "woohoo": [
       5000,
-      98847.34693877552
+      626.9387755102046
     ]
   }
 }

@@ -1,0 +1,12 @@
+{
+  "urls": [
+    "themeSongSimpson.webm",
+    "themeSongSimpson.mp3"
+  ],
+  "sprite": {
+    "Simpson_theme": [
+      0,
+      98847.34693877552
+    ]
+  }
+}
