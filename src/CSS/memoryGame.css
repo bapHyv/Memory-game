@@ -11,7 +11,7 @@ h2.southPark {
 }
 
 .muteButton {
-	width: 10%;
+	width: 5%;
 }
 
 .cards {
@@ -121,12 +121,6 @@ img{
 	align-items: center;
 	margin-top: 1%;
 	margin-bottom: 1%;
-}
-
-.optionsButton {
-	width: auto;
-	text-align: center;
-	margin-top: 2%;
 }
 
 @media (max-width: 575.98px) { 

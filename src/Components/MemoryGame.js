@@ -222,7 +222,9 @@ const MemoryGame = () => {
 		<div className="memoryPage">
 			<div className="timeAndClick col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
 				<Bounce left>
-					<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>timer: {timer}</h2>
+					<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>
+						timer: {timer}
+					</h2>
 				</Bounce>
 				<Bounce>
 					<button
@@ -236,7 +238,9 @@ const MemoryGame = () => {
 					</button>
 				</Bounce>
 				<Bounce right>
-						<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>click: {numberOfClick}</h2>
+					<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>
+						click: {numberOfClick}
+					</h2>
 				</Bounce>
 			</div>
 			<Bounce left>
@@ -265,22 +269,25 @@ const MemoryGame = () => {
 				</div>
 			</Bounce>
 			<Bounce bottom>
-				<div className="optionsButton">
-					<Link to="/">
-						<button
-							onClick={handleClickOptions}
-							disabled={gameStarted ? true : false}
-							className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
-						>
-							OPTIONS
-						</button>
+					<div className="d-flex justify-content-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 mt-3">
+						<Link to="/">
+							<button
+								onClick={handleClickOptions}
+								disabled={gameStarted ? true : false}
+								className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
+							>
+								OPTIONS
+							</button>
+						</Link>
+					</div>
+					<div className="d-flex justify-content-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 mt-3 mb-3">
 						{muted ? (
 							<img onClick={muteSound} src={mutedSpeaker} alt="muteSound" className="muteButton" />
 						) : (
 							<img onClick={muteSound} src={speaker} alt="muteSound" className="muteButton" />
 						)}
-					</Link>
-				</div>
+					</div>
+
 			</Bounce>
 		</div>
 	);
