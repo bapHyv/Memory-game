@@ -8,7 +8,7 @@ import Bounce from 'react-reveal';
 import randomiseArray from '../randomiseArrayAlgorithm';
 
 import { Howler } from 'howler';
-import { soundEffectSimpson, themeSongSimpson, soundEffectSouthPark, themeSongSouthPark} from '../dataSounds';
+import { soundEffectSimpson, themeSongSimpson, soundEffectSouthPark, themeSongSouthPark } from '../dataSounds';
 import {
 	backFaceSimpsons,
 	imagesFrontFaceSimpsons12cards,
@@ -19,6 +19,9 @@ import {
 } from '../dataImages';
 
 import optionsContext from '../Context/optionsContext';
+
+import speaker from '../Assets/Images/speaker-128.png';
+import mutedSpeaker from '../Assets/Images/muted_speaker-128.png'
 
 const MemoryGame = () => {
 	const [optionsState] = useContext(optionsContext);
@@ -34,17 +37,22 @@ const MemoryGame = () => {
 	const [numberOfClick, setNumberOfClick] = useState(0);
 	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([]);
 	const [themeSongId, setThemeSongId] = useState(0);
+	const [muted, setMuted] = useState(true);
 
 	// COMPONENT DID MOUNT
 	useEffect(() => {
 		Howler.volume(0.5);
 	}, []);
 
+	useEffect(() => {
+		Howler.mute(muted);
+	}, [muted]);
+
 	// COMPONENT DID UPDATE
 	useEffect(() => {
 		// keep track of the Simpson_theme song id through out the game because at the beginning of each game, a new instance of Howl is created
 		(theme === 'simpson' ? themeSongSimpson : themeSongSouthPark)._sounds.map(e => {
-			if (e._sprite === 'Simpson_theme' || e._sprite === "South_park_theme") {
+			if (e._sprite === 'Simpson_theme' || e._sprite === 'South_park_theme') {
 				setThemeSongId(e._id);
 			}
 		});
@@ -192,12 +200,22 @@ const MemoryGame = () => {
 		timerInterval();
 		loseTimeout();
 		theme === 'simpson'
-			? themeSongSimpson.volume(0.4).loop(true).play('Simpson_theme')
-			: themeSongSouthPark.volume(0.4).loop(true).play('South_park_theme');
+			? themeSongSimpson
+					.volume(0.4)
+					.loop(true)
+					.play('Simpson_theme')
+			: themeSongSouthPark
+					.volume(0.4)
+					.loop(true)
+					.play('South_park_theme');
 	};
 
 	const handleClickOptions = () => {
 		resetLocalState();
+	};
+
+	const muteSound = () => {
+		setMuted(prevMuted => !prevMuted);
 	};
 
 	return (
@@ -217,6 +235,9 @@ const MemoryGame = () => {
 				</Bounce>
 				<Bounce right>
 					<h2 className={theme}>click: {numberOfClick}</h2>
+					{
+						muted ? <img onClick={muteSound} src={mutedSpeaker} alt="muteSound" className="muteButton" /> : <img onClick={muteSound} src={speaker} alt="muteSound" className="muteButton" />
+					}
 				</Bounce>
 			</div>
 			<Bounce left>

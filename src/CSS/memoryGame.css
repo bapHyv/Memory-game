@@ -9,6 +9,11 @@ h2 {
 h2.southPark {
 	color: #EE3253
 }
+
+.muteButton {
+	width: 1.8%;
+}
+
 .cards {
 	width: 50%;
 	height: 80vh;
