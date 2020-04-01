@@ -84,7 +84,7 @@ const Options = () => {
 						disabled={difficulty && theme && time ? false : true}
 						className={`${difficulty && theme && time ? 'enabledBtn' : 'disabledBtn'} ${themeChoice}`}
 					>
-						Start game
+						To the game!
 					</button>
 				</Link>
 			</Bounce>

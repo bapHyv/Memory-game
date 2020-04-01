@@ -21,7 +21,7 @@ import {
 import optionsContext from '../Context/optionsContext';
 
 import speaker from '../Assets/Images/speaker-128.png';
-import mutedSpeaker from '../Assets/Images/muted_speaker-128.png'
+import mutedSpeaker from '../Assets/Images/muted_speaker-128.png';
 
 const MemoryGame = () => {
 	const [optionsState] = useContext(optionsContext);
@@ -37,7 +37,7 @@ const MemoryGame = () => {
 	const [numberOfClick, setNumberOfClick] = useState(0);
 	const [intervalAndTimoutId, setIntervalAndTimoutId] = useState([]);
 	const [themeSongId, setThemeSongId] = useState(0);
-	const [muted, setMuted] = useState(true);
+	const [muted, setMuted] = useState(false);
 
 	// COMPONENT DID MOUNT
 	useEffect(() => {
@@ -220,24 +220,23 @@ const MemoryGame = () => {
 
 	return (
 		<div className="memoryPage">
-			<div className="timeAndClick">
+			<div className="timeAndClick col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
 				<Bounce left>
-					<h2 className={theme}>timer: {timer}</h2>
+					<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
 					<button
 						onClick={() => startGame()}
 						disabled={gameStarted ? true : false}
-						className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
+						className={`${
+							gameStarted ? 'disabledBtn' : 'enabledBtn'
+						} ${theme} col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}
 					>
-						start the game
+						START
 					</button>
 				</Bounce>
 				<Bounce right>
-					<h2 className={theme}>click: {numberOfClick}</h2>
-					{
-						muted ? <img onClick={muteSound} src={mutedSpeaker} alt="muteSound" className="muteButton" /> : <img onClick={muteSound} src={speaker} alt="muteSound" className="muteButton" />
-					}
+						<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>click: {numberOfClick}</h2>
 				</Bounce>
 			</div>
 			<Bounce left>
@@ -273,8 +272,13 @@ const MemoryGame = () => {
 							disabled={gameStarted ? true : false}
 							className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
 						>
-							Options
+							OPTIONS
 						</button>
+						{muted ? (
+							<img onClick={muteSound} src={mutedSpeaker} alt="muteSound" className="muteButton" />
+						) : (
+							<img onClick={muteSound} src={speaker} alt="muteSound" className="muteButton" />
+						)}
 					</Link>
 				</div>
 			</Bounce>
