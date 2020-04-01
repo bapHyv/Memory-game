@@ -125,17 +125,24 @@ img {
 	h2 {
 		font-size: 1.5em;
 	}
-	button {
-		font-size: 1.5em;
-	}
-
 	.cards {
 		width: 75%;
 		height: 53vh;
 	}
+	.cards24 {
+		width: 95%;
+		height: 80vh;
+	}
+	.card24 {
+		width: calc(25% - 10px);
+		height: calc(16.667% - 10px);
+	}
 }
 
 @media (min-width: 576px) {
+	h2 {
+		font-size: 2em;
+	}
 	.cards {
 		height: 65vh;
 	}
@@ -144,16 +151,27 @@ img {
 @media (min-width: 768px) {
 	.cards {
 		width: 65%;
-		height: 70vh;
+		height: 60vh;
 	}
 }
 
 @media (min-width: 850px) {
+	h2 {
+		font-size: 3em;
+	}
 	.cards {
-		width: 50%;
-		height: 80vh;
+		width: 65%;
+		height: 60vh;
 	}
 }
 
-@media (max-width: 1199.98px) {
+@media (min-width: 1200px) {
+	.cards24 {
+		width: 95%;
+		height: 75vh;
+	}
+	.card24 {
+		width: calc(12.5% - 10px);
+		height: calc(33.333% - 10px);
+	}
 }
