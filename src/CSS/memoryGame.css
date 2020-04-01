@@ -2,12 +2,12 @@
 h2 {
 	font-family: BoldlyMissy;
 	font-size: 3em;
-	color: #FED41D;
+	color: #fed41d;
 	width: 12.5%;
 }
 
 h2.southPark {
-	color: #EE3253
+	color: #ee3253;
 }
 
 .muteButton {
@@ -44,7 +44,6 @@ h2.southPark {
 	width: calc(12.5% - 10px);
 }
 
-
 /* TRIGGERED WHEN THE ELEMENT CARD GETS CLICKED */
 .card:active {
 	transform: scale(0.97);
@@ -64,19 +63,19 @@ h2.southPark {
 	padding: 15%;
 	position: absolute;
 	border-radius: 10px;
-	background-color: #009DDC;
+	background-color: #009ddc;
 	backface-visibility: hidden;
 }
 
 .frontCard.southPark {
-	background-color: #FFE11D;
+	background-color: #ffe11d;
 }
 
 .backCard.southPark {
-	background-color: #FFE11D;
+	background-color: #ffe11d;
 }
 
-img{
+img {
 	width: 75%;
 	height: 75%;
 }
@@ -85,7 +84,6 @@ img{
 	pointer-events: none;
 }
 
-
 .card.disabled {
 	opacity: 0.4;
 	pointer-events: none;
@@ -93,7 +91,7 @@ img{
 
 .frontCard.matched {
 	opacity: 0.6;
-	animation: lighting 1s linear 1 100ms
+	animation: lighting 1s linear 1 100ms;
 }
 
 @keyframes lighting {
@@ -123,25 +121,39 @@ img{
 	margin-bottom: 1%;
 }
 
-@media (max-width: 575.98px) { 
+@media (min-width: 320px) {
 	h2 {
 		font-size: 1.5em;
 	}
 	button {
 		font-size: 1.5em;
 	}
- }
 
+	.cards {
+		width: 75%;
+		height: 53vh;
+	}
+}
 
-@media (max-width: 767.98px) { 
- }
+@media (min-width: 576px) {
+	.cards {
+		height: 65vh;
+	}
+}
 
+@media (min-width: 768px) {
+	.cards {
+		width: 65%;
+		height: 70vh;
+	}
+}
 
-@media (max-width: 991.98px) { 
+@media (min-width: 850px) {
+	.cards {
+		width: 50%;
+		height: 80vh;
+	}
+}
 
- }
-
-
-@media (max-width: 1199.98px) { 
-
- }
+@media (max-width: 1199.98px) {
+}

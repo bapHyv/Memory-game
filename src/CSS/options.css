@@ -1,6 +1,6 @@
 @font-face {
 	font-family: BoldlyMissy;
-	src: url("../Assets/Fonts/BoldlyMissy.otf") format("opentype")
+	src: url('../Assets/Fonts/BoldlyMissy.otf') format('opentype');
 }
 
 .gameOptions {
@@ -23,12 +23,12 @@ h1 {
 	color: rgb(1, 165, 230);
 	font-size: 3em;
 	font-family: BoldlyMissy;
-	transition: .6s;
+	transition: 0.6s;
 }
 
 h1.southPark {
-	color: #EE3253;
-	transition: .6s;
+	color: #ee3253;
+	transition: 0.6s;
 }
 
 select {
@@ -39,7 +39,7 @@ select {
 	outline: 0;
 	box-shadow: none;
 	border: 0 !important;
-	background: #009DDC;
+	background: #009ddc;
 	background-image: none;
 	flex: 1;
 	padding: 0 0.5em;
@@ -47,12 +47,12 @@ select {
 	cursor: pointer;
 	font-size: 1em;
 	font-family: 'Open Sans', sans-serif;
-	transition: .6s;
+	transition: 0.6s;
 }
 
 select.southPark {
-	background: #EE3253;
-	transition: .6s;
+	background: #ee3253;
+	transition: 0.6s;
 }
 
 select::-ms-expand {
@@ -65,12 +65,12 @@ select::-ms-expand {
 	width: 20em;
 	height: 3em;
 	line-height: 3;
-	background: #FED41D;
+	background: #fed41d;
 	overflow: hidden;
 	border-radius: 0.25em;
 }
 .select.southPark {
-	background: #FFE11D;
+	background: #ffe11d;
 }
 .select::after {
 	content: '\25BC';
@@ -78,52 +78,52 @@ select::-ms-expand {
 	top: 0;
 	right: 0;
 	padding: 0 1em;
-	background: #FED41D;
+	background: #fed41d;
 	cursor: pointer;
 	pointer-events: none;
 	transition: 0.25s all ease;
-	transition: .6s;
+	transition: 0.6s;
 }
 
 .select.southPark::after {
-	background: #00B8C4;
-	transition: .6s;
+	background: #00b8c4;
+	transition: 0.6s;
 }
 
 .select:hover::after {
-	color: #009DDC;
+	color: #009ddc;
 }
 
 .select.southPark:hover::after {
-	color: #EE3253
+	color: #ee3253;
 }
 
 .enabledBtn {
 	background: none;
-	color: #009DDC;
+	color: #009ddc;
 	font-size: 200%;
 	width: 10em;
 	height: 1.85em;
-	border: 1px solid #FED41D;
+	border: 1px solid #fed41d;
 	border-radius: 0.25em;
-	transition: .6s;
+	transition: 0.6s;
 	overflow: hidden;
 	font-family: BoldlyMissy;
 }
 
 .enabledBtn.southPark {
-	border: 1px solid #EE3253;
-	color: #00B8C4;
+	border: 1px solid #ee3253;
+	color: #00b8c4;
 }
 
 .enabledBtn:hover {
-	background-color: #009DDC;
-	color: #FED41D;
+	background-color: #009ddc;
+	color: #fed41d;
 }
 
 .enabledBtn.southPark:hover {
-	background-color: #00B8C4;
-	color: #EE3253;
+	background-color: #00b8c4;
+	color: #ee3253;
 }
 
 .disabledBtn {
@@ -134,27 +134,25 @@ select::-ms-expand {
 	height: 1.85em;
 	border: 1px solid grey;
 	border-radius: 0.25em;
-	transition: .6s;
+	transition: 0.6s;
 	overflow: hidden;
 	font-family: BoldlyMissy;
 }
 
-@media (max-width: 575.98px) { 
+@media (max-width: 575.98px) {
 	.enabledBtn {
-	font-size: 150%;
+		font-size: 150%;
 	}
- }
+	.disabledBtn {
+		font-size: 150%;
+	}
+}
 
+@media (max-width: 767.98px) {
+}
 
-@media (max-width: 767.98px) { 
- }
+@media (max-width: 991.98px) {
+}
 
-
-@media (max-width: 991.98px) { 
-
- }
-
-
-@media (max-width: 1199.98px) { 
-
- }
+@media (max-width: 1199.98px) {
+}
