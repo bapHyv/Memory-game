@@ -11,11 +11,11 @@ I made this project with [ReactJs](https://reactjs.org/) to keep practicing hook
 -[Bootstrap](https://getbootstrap.com/)
 
 
-## How to play:
+### How to play:
 
 This is a **memory game**. Chose a **theme**, a **difficulty** and a **time** then you are good to go!<br />
 The goal is to find every **matching card** from the board.
 
-## Run the application:
+### Run the application:
 
 To run this application, use the commande line `npm start`
