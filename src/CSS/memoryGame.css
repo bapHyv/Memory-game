@@ -11,12 +11,12 @@ h2.southPark {
 }
 
 .muteButton {
-	width: 5%;
+	width: 3%;
 }
 
 .cards {
 	width: 50%;
-	height: 80vh;
+	height: 75vh;
 	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
@@ -166,6 +166,10 @@ img {
 }
 
 @media (min-width: 1200px) {
+	.cards {
+		width: 50%;
+		height: 75vh;
+	}
 	.cards24 {
 		width: 95%;
 		height: 75vh;

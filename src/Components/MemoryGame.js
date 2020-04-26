@@ -9,14 +9,7 @@ import randomiseArray from '../randomiseArrayAlgorithm';
 
 import { Howler } from 'howler';
 import { soundEffectSimpson, themeSongSimpson, soundEffectSouthPark, themeSongSouthPark } from '../dataSounds';
-import {
-	backFaceSimpsons,
-	imagesFrontFaceSimpsons12cards,
-	imagesFrontFaceSimpsons24cards,
-	backFaceSouthPark,
-	imagesFrontFaceSouthPark12cards,
-	imagesFrontFaceSouthPark24cards
-} from '../dataImages';
+import { backFaceSimpsons, imagesFrontFaceSimpsons12cards, imagesFrontFaceSimpsons24cards, backFaceSouthPark, imagesFrontFaceSouthPark12cards, imagesFrontFaceSouthPark24cards } from '../dataImages';
 
 import optionsContext from '../Context/optionsContext';
 
@@ -26,7 +19,6 @@ import mutedSpeaker from '../Assets/Images/muted_speaker-128.png';
 const MemoryGame = () => {
 	const [optionsState] = useContext(optionsContext);
 	const { difficulty, theme, time } = optionsState;
-	// The imgArray is set to an array with cards by default because if imgArray was an empty array, the winning condition would be triggered at the beginning of the game
 	const [imgArray, setImgArr] = useState(['cards']);
 	const [imgFlipped, setImgFlipped] = useState([]);
 	const [winCount, setWinCount] = useState(0);
@@ -44,6 +36,7 @@ const MemoryGame = () => {
 		Howler.volume(0.5);
 	}, []);
 
+	//COMPONENT DID UPDATE
 	useEffect(() => {
 		Howler.mute(muted);
 	}, [muted]);
@@ -62,15 +55,7 @@ const MemoryGame = () => {
 	useEffect(() => {
 		// shuffle the cards inside the array at the beggining of the game and when the user win or lose
 		setImgArr(
-			randomiseArray(
-				theme === 'simpson'
-					? difficulty === 12
-						? imagesFrontFaceSimpsons12cards
-						: imagesFrontFaceSimpsons24cards
-					: difficulty === 12
-					? imagesFrontFaceSouthPark12cards
-					: imagesFrontFaceSouthPark24cards
-			).map(e => {
+			randomiseArray(theme === 'simpson' ? (difficulty === 12 ? imagesFrontFaceSimpsons12cards : imagesFrontFaceSimpsons24cards) : difficulty === 12 ? imagesFrontFaceSouthPark12cards : imagesFrontFaceSouthPark24cards).map(e => {
 				return {
 					...e,
 					flipped: false,
@@ -93,15 +78,6 @@ const MemoryGame = () => {
 				setIntervalAndTimoutId([]);
 			}, 1000);
 		}
-		/*
-			When 2 cards are flipped and not matched, if the user click on an other card during the animation that flip back the card, 
-			this 3rd card can stay stuck. the line of code under prevent this bug
-		*/
-		imgArray.map(e => {
-			if (e.flipped === true && imgFlipped.length === 0) {
-				resetImgArr();
-			}
-		});
 	}, [winCount, numberOfClick]);
 
 	// CLICK EVENT ON CARD
@@ -157,12 +133,14 @@ const MemoryGame = () => {
 		setImgFlipped([]);
 	};
 
+	// this function is used to reset every single card
 	const resetImgArr = () => {
 		imgArray.map(e => {
 			return (e.flipped = false), (e.matched = false);
 		});
 	};
 
+	// this function is used to reset the local state at the end of each game and when the user click on options to prevent any bug
 	const resetLocalState = () => {
 		resetImgArr();
 		setImgFlipped([]);
@@ -190,16 +168,12 @@ const MemoryGame = () => {
 			clearTimeout(intervalAndTimoutId[1]);
 			setIntervalAndTimoutId([]);
 		}, timer * 1000 + 1000);
+		// keep track of the interval IDs to stop them when the game finishes
 		intervalAndTimoutId.push(timeoutId);
 	};
 
-	const startGame = () => {
-		resetImgArr();
-		setImgFlipped([]);
-		setGameStarted(true);
-		timerInterval();
-		loseTimeout();
-		theme === 'simpson'
+	const playThemeSong = theme => {
+		return theme === 'simpson'
 			? themeSongSimpson
 					.volume(0.4)
 					.loop(true)
@@ -210,6 +184,15 @@ const MemoryGame = () => {
 					.play('South_park_theme');
 	};
 
+	const startGame = () => {
+		resetImgArr();
+		setImgFlipped([]);
+		setGameStarted(true);
+		timerInterval();
+		loseTimeout();
+		playThemeSong(theme)
+	};
+
 	const handleClickOptions = () => {
 		resetLocalState();
 	};
@@ -218,76 +201,46 @@ const MemoryGame = () => {
 		setMuted(prevMuted => !prevMuted);
 	};
 
+	const col4 = 'col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0';
+	const col12 = 'col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0';
+	const dFlxJustContCent = 'd-flex justify-content-center';
+
 	return (
 		<div className="memoryPage">
-			<div className="timeAndClick col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0">
+			<div className={`timeAndClick ${col12}`}>
 				<Bounce left>
-					<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>
-						timer: {timer}
-					</h2>
+					<h2 className={`${theme} ${dFlxJustContCent} ${col4}`}>timer: {timer}</h2>
 				</Bounce>
 				<Bounce>
-					<button
-						onClick={() => startGame()}
-						disabled={gameStarted ? true : false}
-						className={`${
-							gameStarted ? 'disabledBtn' : 'enabledBtn'
-						} ${theme} col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}
-					>
+					<button onClick={() => startGame()} disabled={gameStarted ? true : false} className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme} ${col4}`}>
 						START
 					</button>
 				</Bounce>
 				<Bounce right>
-					<h2 className={`${theme} d-flex justify-content-center col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 p-0`}>
-						click: {numberOfClick}
-					</h2>
+					<h2 className={`${theme} ${dFlxJustContCent} ${col4}`}>click: {numberOfClick}</h2>
 				</Bounce>
 			</div>
 			<Bounce left>
 				<div className={`cards cards${difficulty}`}>
 					{imgArray.map((e, i) => {
 						return (
-							<div
-								className={
-									!gameStarted
-										? `card card${difficulty} disabled`
-										: `card card${difficulty} ${e.flipped ? 'flip' : ''} ${e.matched ? 'matched' : ''}`
-								}
-								onClick={() => clickingOnCard(e.name, i)}
-								key={i}
-								cardname={e.name}
-							>
+							<div className={!gameStarted ? `card card${difficulty} disabled` : `card card${difficulty} ${e.flipped ? 'flip' : ''} ${e.matched ? 'matched' : ''}`} onClick={() => clickingOnCard(e.name, i)} key={i} cardname={e.name}>
 								<img className={`frontCard ${e.matched ? 'matched' : ''} ${theme}`} src={e.img} alt={e.name} />
-								<img
-									className={`backCard ${theme}`}
-									src={theme === 'simpson' ? backFaceSimpsons : backFaceSouthPark}
-									alt="back face"
-								/>
+								<img className={`backCard ${theme}`} src={theme === 'simpson' ? backFaceSimpsons : backFaceSouthPark} alt="back face" />
 							</div>
 						);
 					})}
 				</div>
 			</Bounce>
 			<Bounce bottom>
-					<div className="d-flex justify-content-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 mt-3">
-						<Link to="/">
-							<button
-								onClick={handleClickOptions}
-								disabled={gameStarted ? true : false}
-								className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}
-							>
-								OPTIONS
-							</button>
-						</Link>
-					</div>
-					<div className="d-flex justify-content-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-0 mt-3 mb-3">
-						{muted ? (
-							<img onClick={muteSound} src={mutedSpeaker} alt="muteSound" className="muteButton" />
-						) : (
-							<img onClick={muteSound} src={speaker} alt="muteSound" className="muteButton" />
-						)}
-					</div>
-
+				<div className={`${dFlxJustContCent} ${col12} mt-3`}>
+					<Link to="/">
+						<button onClick={handleClickOptions} disabled={gameStarted ? true : false} className={`${gameStarted ? 'disabledBtn' : 'enabledBtn'} ${theme}`}>
+							OPTIONS
+						</button>
+					</Link>
+				</div>
+				<div className={`${dFlxJustContCent} ${col12} mt-3 mb-3`}>{muted ? <img onClick={muteSound} src={mutedSpeaker} alt="muteSound" className="muteButton" /> : <img onClick={muteSound} src={speaker} alt="muteSound" className="muteButton" />}</div>
 			</Bounce>
 		</div>
 	);
